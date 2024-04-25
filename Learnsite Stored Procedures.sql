@@ -35,6 +35,8 @@ BEGIN
 END
 Go;
 
+EXEC spInsertUser 'Tshiamo', 'Mothokho', 'admin@learnsite.ac.za', 'admin1234', 'Admin', 'Active'
+
 CREATE PROCEDURE spUpdateUser
 	@UserID INT, 
 	@FirstName NVARCHAR(50),
