@@ -8,17 +8,48 @@ namespace Learnsite.Controllers
 {
     public class UserController : Controller
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserRepository _user;
 
-        public UserController(IUserRepository userRepository)
+        public UserController(IUserRepository user)
         {
-            _userRepository = userRepository;
+            _user = user;
         }
 
         public async Task<IActionResult> Index()
         {
-            IEnumerable<User> userList = await _userRepository.GetAllUsersAsync();
+            IEnumerable<User> userList = await _user.GetAllUsersAsync();
             return View(userList);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(User user)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return View(user);
+
+                bool addUser = await _user.InsertUserAsync(user);
+
+                if(addUser)
+                {
+                    TempData["msg"] = "Added Sucessfully!";
+                }
+                else
+                {
+                    TempData["msg"] = "Failed!";
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["msg"] = $"{ex.Message} \n Something is wrong. Contact Administrator.";
+            }
+            return RedirectToAction("Index");
         }
     }
 }
