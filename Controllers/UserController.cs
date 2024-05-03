@@ -31,8 +31,10 @@ namespace Learnsite.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                    return View(user);
+                user.Status = "Active";
+
+                //if (!ModelState.IsValid)
+                //    return View(user);
 
                 bool addUser = await _user.InsertUserAsync(user);
 
