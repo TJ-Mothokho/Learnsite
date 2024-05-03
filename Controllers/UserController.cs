@@ -53,5 +53,33 @@ namespace Learnsite.Controllers
             }
             return RedirectToAction("Index");
         }
+
+       public IActionResult Edit()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> Edit(int id, User user)
+        {
+            try
+            {
+                bool addUser = await _user.UpdateUserAsync(user);
+
+                if (addUser)
+                {
+                    TempData["msg"] = "Updated Sucessfully!";
+                }
+                else
+                {
+                    TempData["msg"] = "Failed!";
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["msg"] = $"{ex.Message} \n Something is wrong. Contact Administrator.";
+            }
+            return RedirectToAction("Index");
+
+        }
     }
 }

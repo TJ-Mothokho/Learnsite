@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<DataLayer.Models.Domain.User>;
 
-    @{
-        ViewData["Title"] = "Users";
-    }
+@{
+    ViewData["Title"] = "Users";
+}
 
 <div>
     <div>
@@ -20,7 +20,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach(var item in Model)
+            @foreach (var item in Model)
             {
                 <tr>
                     <td>@item.UserID</td>
@@ -28,6 +28,11 @@
                     <td>@item.LastName</td>
                     <td>@item.Email</td>
                     <td>@item.Role</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new {  id=item.UserID  }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.UserID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.UserID })
+                    </td>
                 </tr>
             }
         </tbody>
