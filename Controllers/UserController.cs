@@ -54,11 +54,21 @@ namespace Learnsite.Controllers
             return RedirectToAction("Index");
         }
 
-       public IActionResult Edit()
+       public async Task<IActionResult> Edit(int? id)
         {
+            try
+            {
+                    User user = await _user.GetUserByIdAsync((int)id);
+                    return View(user);
+            }
+            catch
+            {
+
+            }
             return View();
         }
 
+        [HttpPost]
         public async Task<IActionResult> Edit(int id, User user)
         {
             try
