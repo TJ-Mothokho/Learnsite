@@ -38,7 +38,7 @@ namespace Learnsite.Controllers
 
                 bool addUser = await _user.InsertUserAsync(user);
 
-                if(addUser)
+                if (addUser)
                 {
                     TempData["msg"] = "Added Sucessfully!";
                 }
@@ -54,12 +54,12 @@ namespace Learnsite.Controllers
             return RedirectToAction("Index");
         }
 
-       public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             try
             {
-                    User user = await _user.GetUserByIdAsync((int)id);
-                    return View(user);
+                User user = await _user.GetUserByIdAsync((int)id);
+                return View(user);
             }
             catch
             {
@@ -69,7 +69,7 @@ namespace Learnsite.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, User user)
+        public async Task<IActionResult> Edit(User user)
         {
             try
             {
